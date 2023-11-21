@@ -1,0 +1,33 @@
+<!-- users/index.html.erb -->
+<% if flash[:error] %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+<div class="container mt-3">
+  <div class="row flex-column flex-md-row">
+    <div class="col-md-3">
+      <%= render 'users/user_info', user: @user %>
+      <div class="mt-4">
+        <%= render 'books/new' %>
+      </div>
+    </div>
+    
+    <div class="col-md-9">
+      <h3 class="mb-3 border-bottom">Users</h3>
+      <% @users.each do |user| %>
+        <div class="row mb-1 border-bottom">
+          <div class="col-md-2">
+            <%= image_tag user.get_profile_image(75, 75), class: "img-fluid rounded-circle" %>
+          </div>
+          <div class="col-md-5">
+            <h5 class="mb-1"><%= user.name %></h5>
+          </div>
+          <div class="col-md-5">
+            <%= link_to 'show', user_path(user), class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

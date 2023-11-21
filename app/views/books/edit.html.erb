@@ -1,0 +1,46 @@
+<!-- book/edit.html.erb -->
+<div class="container mt-3">
+  <div class="row">
+    <% if @book %>
+      <div class="col-md-3">
+        <%= render 'users/user_info', user: @book.user %>
+      </div>
+      <div class="col-md-9">
+        <h2>Editing Book</h2>
+        <%= form_with(model: @book, local: true) do |form| %>
+          <div class="row mb-2">
+            <div class="col-md-8">
+              <div class="form-group">
+                <%= form.label :title %>
+                <%= form.text_field :title, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-8">
+              <div class="form-group">
+                <%= form.label :body %>
+                <%= form.text_area :body, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <%= form.submit "Update Book", class: 'btn btn-success' %>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-12">
+              <%= link_to 'show', book_path(@book)%> |
+              <%= link_to 'back', books_path %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col-md-12">
+        <p class="alert alert-warning">本が見つかりません。</p>
+      </div>
+    <% end %>
+  </div>
+</div>

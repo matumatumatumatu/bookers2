@@ -1,0 +1,6 @@
+<!-- app/views/shared/_errors.html.erb -->
+<% if flash[:error].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:error] %>
+  </div>
+<% end %>

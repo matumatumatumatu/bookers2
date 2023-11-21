@@ -1,0 +1,41 @@
+<!--top/html-->
+<html>
+<head>
+  <title>bookers</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <script src="https://kit.fontawesome.com/75e9689074.js" crossorigin="anonymous"></script>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body class="d-flex flex-column vh-100">
+  <!-- メインコンテンツ -->
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-6">
+      <h1 class="text-center">
+        Welcome to <i class="fa-solid fa-book"></i>Bookers!
+        </h1>
+      
+      <p class="text-left">You can share and exchange your opinions, impressions, and emotions about various books!</p>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="row flex-column flex-md-row">
+    <div class="col-md-3">
+      <div class="mt-4">
+      </div>
+    </div>
+    
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+    <div class="mt-10 d-flex flex-column align-items-stretch">
+    <%= link_to 'Log in', new_user_session_path, class: 'btn btn-primary mb-2 w-10' %> <!-- 青色に変更 -->
+    <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-success w-100' %> <!-- 緑色に変更 -->
+    </div>
+   </div>
+  </div>
+</div>
