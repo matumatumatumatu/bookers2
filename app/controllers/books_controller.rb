@@ -3,13 +3,8 @@ class BooksController < ApplicationController
 def index
   flash[:error].clear if flash[:error]
   @user = current_user
-
-  if params[:user_id]
-    @user = User.find(params[:user_id])
-    @books = @user.books
-  else
-    @books = Book.all
-  end
+  @book = Book.new
+  @books = Book.all
 end
 
   def show
@@ -19,42 +14,45 @@ end
   
   def edit
     @book = Book.find(params[:id])
+    # 投稿の所有者でなければリダイレクトする
+    redirect_to books_path unless @book.user == current_user
   end
   
-def destroy
+  def destroy
   @book = Book.find(params[:id])
   if @book.destroy
     flash[:notice] = "本を削除しました。"
-    redirect_to user_books_path
+    redirect_to books_path # すべてのユーザーの投稿一覧へリダイレクト
   else
     flash[:alert] = "本の削除に失敗しました。"
     render :show
   end
-end
+  end
 
 def create
   @book = Book.new(book_params)
   @book.user_id = current_user.id
 
   if @book.save
-    redirect_to book_path(@book), notice: '本が投稿されました。'
+    redirect_to book_path(@book), notice: 'The book was successfully posted.'
   else
     flash.now[:error] = @book.errors.full_messages.to_sentence
     @books = Book.all
+    @user = current_user
     render 'index'
   end
 end
 
-def update
-  @book = Book.find(params[:id])
-  if @book.update(book_params)
-    redirect_to book_path(@book), notice: '本の情報を更新しました。'
-  else
-    flash.now[:error] = @book.errors.full_messages.to_sentence
-    render :edit
+  def update
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      redirect_to book_path(@book), notice: 'The book was successfully updated.'
+    else
+      flash.now[:error] = @book.errors.full_messages.to_sentence
+      render :edit
+    end
   end
-end
-
+  
   private
 
   def book_params

@@ -1,6 +1,14 @@
 <!-- books/index.html.erb -->
-<div class="container mt-3">
-  <div class="row flex-column flex-md-row">
+<div class="container">
+  <% if @book.errors.any? %>
+  <%= @book.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+  <div class="row">
     <div class="col-md-3">
       <%= render 'users/user_info', user: @user %>
       <div class="my-4">
@@ -8,7 +16,7 @@
       </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-8 offset-md-1">
       <h3 class="mb-3 border-bottom">Books</h3>
       <div class="row mb-2 border-bottom">
         <div class="col-md-2">
@@ -22,25 +30,25 @@
         </div>
       </div>
       
-      <% @books.each do |book| %>
-      <div class="row mb-1 border-bottom">
+  <% @books.each do |book| %>
+    <div class="row mb-1"> 
+      <div class="col-md-2">
+        <%# ユーザー画像へのリンクを追加 %>
+        <%= link_to user_path(book.user) do %>
+          <% if book.image.attached? %>
+            <%= image_tag book.image.variant(resize: '50x50'), class: "img-fluid rounded-circle" %>
+          <% else %>
+            <%= image_tag 'default-image.jpg', class: "img-fluid rounded-circle" %>
+          <% end %>
+        <% end %>
       </div>
-        <div class="row mb-1"> 
-          <div class="col-md-2">
-            <% if book.image.attached? %>
-              <%= image_tag book.image.variant(resize: '50x50'), class: "img-fluid rounded-circle" %>
-            <% else %>
-              <%= image_tag 'default-image.jpg', class: "img-fluid rounded-circle" %>
-            <% end %>
-          </div>
-          <div class="col-md-5">
-            <p class="mb-1"><%= link_to book.title, book_path(book) %></p>
-          </div>
-          <div class="col-md-5">
-            <p class="mb-1"><%= book.body %></p>
-          </div>
-        </div>
-      <% end %>
+      <div class="col-md-5">
+        <p class="mb-1"><%= link_to book.title, book_path(book) %></p>
+      </div>
+      <div class="col-md-5">
+        <p class="mb-1"><%= book.body %></p>
+      </div>
     </div>
-  </div>
+    <div class="row mb-1 border-bottom"></div>
+  <% end %>
 </div>

@@ -1,6 +1,10 @@
-<!-- app/views/shared/_errors.html.erb -->
-<% if flash[:error].present? %>
-  <div class="alert alert-danger">
-    <%= flash[:error] %>
+<!-- devise/shared/error_messages.html.erb -->
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>

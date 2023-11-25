@@ -1,30 +1,42 @@
-<!-- users/index.html.erb -->
+<!--user/indx-->
 <% if flash[:error] %>
   <div class="alert alert-danger">
     <%= flash[:error] %>
   </div>
 <% end %>
-<div class="container mt-3">
-  <div class="row flex-column flex-md-row">
+
+<div class="container">
+  <div class="row">
     <div class="col-md-3">
       <%= render 'users/user_info', user: @user %>
       <div class="mt-4">
         <%= render 'books/new' %>
       </div>
     </div>
-    
-    <div class="col-md-9">
-      <h3 class="mb-3 border-bottom">Users</h3>
+    <div class="col-md-8 offset-md-1">
+      <h2><class="mb-3 border-bottom">Users</h2>
+      <div class="row mb-2 border-bottom">
+        <div class="col-md-2">
+          <h5>image</h5>
+        </div>
+        <div class="col-md-5">
+          <h5>name</h5>
+        </div>
+        <div class="col-md-5">
+          <h5>Show</h5>
+        </div>
+      </div>
+
       <% @users.each do |user| %>
         <div class="row mb-1 border-bottom">
           <div class="col-md-2">
-            <%= image_tag user.get_profile_image(75, 75), class: "img-fluid rounded-circle" %>
+            <%= image_tag user.get_profile_image(75, 75), class: "img-fluid" %>
           </div>
           <div class="col-md-5">
             <h5 class="mb-1"><%= user.name %></h5>
           </div>
           <div class="col-md-5">
-            <%= link_to 'show', user_path(user), class: 'btn btn-primary' %>
+            <%= link_to 'Show', user_path(user), class: 'btn btn-primary' %>
           </div>
         </div>
       <% end %>

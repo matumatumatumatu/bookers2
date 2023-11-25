@@ -1,24 +1,18 @@
 <!-- user/info -->
 <div>
   <h2>User info</h2>
-  <% display_user = local_assigns[:user] || current_user %>
-  <% if display_user %>
-    <%= image_tag display_user.get_profile_image(200, 200), class: "img-fluid rounded-circle" %>
+    <%= image_tag user.get_profile_image(200, 200), class: "img-fluid rounded-circle" %>
     <hr>
-    <h5><%= display_user.name %></h5>
+    <h5><%= user.name %></h5>
     <hr>
-    <p><strong>Introduction:</strong> <%= display_user.introduction %></p>
+    <p><strong>Introduction:</strong> <%= user.introduction %></p>
     
-    <% if display_user == current_user %>
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary d-flex justify-content-center align-items-center" do %>
-            <i class="fa-solid fa-user-gear"></i>
-          <% end %> <!-- link_to ブロックの終了 -->
-        </div>
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <%# ユーザーのプロフィールページに応じてアイコンのリンク先を変更 %>
+        <%= link_to edit_user_path(user.id), class: "btn btn-outline-secondary d-flex justify-content-center align-items-center" do %>
+          <i class="fa-solid fa-user-gear"></i>
+        <% end %> 
       </div>
-    <% end %> <!-- if 文の終了 -->
-  <% else %>
-    <p>No user information available.</p>
-  <% end %>
+    </div>
 </div>
